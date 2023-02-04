@@ -17,31 +17,62 @@ export const todolistApi = {
         return instance.put<ResponseType>(`todo-lists/${todoId}`, {title: editTitle})
     },
     createTodo(todoname: string) {
-        return instance.post<ResponseType<{item:TodolistType}>>("todo-lists", {title: todoname})
+        return instance.post<ResponseType<{ item: TodolistType }>>("todo-lists", {title: todoname})
     },
     deleteTodo(todoId: string) {
         return instance.delete<ResponseType>(`todo-lists/${todoId}`)
     },
-    getTasks(todoId:string){
-        return instance.get(`todo-lists/${todoId}/tasks`)
+    getTasks(todoId: string) {
+        return instance.get<GetTaskType>(`todo-lists/${todoId}/tasks`)
     },
-    deleteTask(todolistId:string,taskId:string){
-       return instance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
+    deleteTask(todolistId: string, taskId: string) {
+        return instance.delete<ResponseTaskType>(`todo-lists/${todolistId}/tasks/${taskId}`)
     },
-    createTask(todolistId:string,newTitle:string){
-        return instance.post(`todo-lists/${todolistId}/tasks`,{title:newTitle})
+    createTask(todolistId: string, newTitle: string) {
+        return instance.post<ResponseTaskType<TaskType>>(`todo-lists/${todolistId}/tasks`, {title: newTitle})
+    },
+    updateTask(todolistId: string, taskId: string, newTitle: string) {
+        return instance.put<ResponseTaskType<TaskType>>(`todo-lists/${todolistId}/tasks/${taskId}`, {title: newTitle})
     }
 }
 
-type TodolistType ={
+type TodolistType = {
     "id": string,
     "title": string,
     "addedDate": string,
     "order": number
 }
-type ResponseType<T={}> = {
+type ResponseType<T = {}> = {
     resultCode: number
     messages: string[],
     data: T
 }
+
+
+export type TaskType = {
+    id: string;
+    title: string;
+    description?: string;
+    todoListId: string;
+    order: number;
+    status: number;
+    priority: number;
+    startDate?: string;
+    deadline?: string;
+    addedDate: string;
+}
+
+export type GetTaskType = {
+    items: TaskType[];
+    totalCount: number;
+    error?: string;
+}
+
+export type ResponseTaskType<T={}> = {
+    data: T;
+    messages: string[];
+    fieldsErrors: string[];
+    resultCode: number;
+}
+
 

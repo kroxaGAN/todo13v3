@@ -10,7 +10,6 @@ export const GetTodolists = () => {
     useEffect(() => {
         todolistApi.getTodo()
             .then((res) => {
-                const result = res
                 setState(res.data)
             })
 
@@ -23,7 +22,6 @@ export const CreateTodolist = () => {
     useEffect(() => {
         todolistApi.createTodo("12343")
             .then((res) => {
-                const result = res.data.data
                 setState(res.data)
             })
     }, [])
@@ -65,20 +63,30 @@ export const GetTasksStory = () => {
 export const DeleteTaskStory = () => {
     const [state, setState] = useState<any>(null)
     useEffect(() => {
-        todolistApi.deleteTask("a251b658-3f5c-4a04-b530-288eee7f09e6", "372483d5-e6e0-4770-88b0-b06ef4fc23ec")
+        todolistApi.deleteTask("a251b658-3f5c-4a04-b530-288eee7f09e6", "47d04b12-3254-42bc-bb7c-c7744720e6b5")
             .then((res) => {
                 setState(res.data)
             })
     }, [])
     return <div>{JSON.stringify(state)}</div>
 }
-export const CreateTaskStory=()=>{
-    const [state,setState]=useState<any>(null)
-    useEffect(()=>{
-        todolistApi.createTask("a251b658-3f5c-4a04-b530-288eee7f09e6","NEW TASK")
-            .then((res)=>{
+export const CreateTaskStory = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        todolistApi.createTask("a251b658-3f5c-4a04-b530-288eee7f09e6", "!!!!!NEW TASK!!!!")
+            .then((res) => {
                 setState(res.data)
             })
-    },[])
+    }, [])
+    return <div>{JSON.stringify(state)}</div>
+}
+export const UpdateTaskStory = () => {
+    const [state, setState] = useState<any>(null)
+    useEffect(() => {
+        todolistApi.updateTask("a251b658-3f5c-4a04-b530-288eee7f09e6", "525fc4a9-ec34-472f-88b8-d6fc31772081", "!*****!")
+            .then((res) => {
+                setState(res.data)
+            })
+    }, [])
     return <div>{JSON.stringify(state)}</div>
 }
